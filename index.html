@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFazenda: O Equilíbrio Verde</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>EcoFazenda: O Equilíbrio Verde</h1>
+        <p>Tema: Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
+    </header>
 
+    <main class="container">
+        <section class="status-panel">
+            <div class="card">
+                <h3>Produção Agrícola</h3>
+                <p><span id="producao">0</span> / 100 toneladas</p>
+            </div>
+            <div class="card">
+                <h3>Sustentabilidade</h3>
+                <p><span id="sustentabilidade">100</span>%</p>
+                <div class="progress-bar-container">
+                    <div id="barra-sustentavel" class="progress-bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="action-panel">
+            <h2>Ações de Manejo</h2>
+            <div class="buttons-grid">
+                <button id="btn-plantar" class="btn btn-agro">
+                    <strong>Plantação Convencional</strong>
+                    <span>+10 Produção | -15% Sustentabilidade</span>
+                </button>
+                
+                <button id="btn-organico" class="btn btn-eco">
+                    <strong>Cultivo Orgânico</strong>
+                    <span>+5 Produção | +5% Sustentabilidade</span>
+                </button>
+                
+                <button id="btn-reflorestar" class="btn btn-forest">
+                    <strong>Reforestar APP</strong>
+                    <span>0 Produção | +20% Sustentabilidade</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="log-panel">
+            <h3>Diário da Fazenda</h3>
+            <p id="mensagem-diario">Bem-vindo! Encontre o equilíbrio entre produzir e proteger a natureza.</p>
+        </section>
+
+        <section id="modal-fim" class="modal hide">
+            <div class="modal-content">
+                <h2 id="modal-titulo">Fim de Jogo</h2>
+                <p id="modal-texto">Resultado da sua gestão.</p>
+                <button id="btn-reiniciar" class="btn btn-restart">Gerenciar Novamente</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido para o Concurso Agrinho 2026 - Categoria Programação</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
