@@ -1,1 +1,185 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+body {
+    background-color: #f4f9f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.container {
+    flex: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Painel de Status */
+.status-panel {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    flex: 1;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-left: 5px solid #2e7d32;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Barra de progresso */
+.progress-bar-container {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 12px;
+    width: 100%;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #4caf50;
+    height: 100%;
+    width: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Painel de Botões */
+.action-panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.action-panel h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #2e7d32;
+}
+
+.buttons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.1s, filter 0.2s;
+}
+
+.btn:hover {
+    filter: brightness(0.9);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-agro { background-color: #ffe0b2; color: #e65100; }
+.btn-eco { background-color: #c8e6c9; color: #1b5e20; }
+.btn-forest { background-color: #b2dfdb; color: #004d40; }
+.btn-restart { background-color: #2e7d32; color: white; width: 100%; padding: 0.8rem; margin-top: 1rem; font-weight: bold;}
+
+.btn span {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    opacity: 0.8;
+}
+
+/* Histórico */
+.log-panel {
+    background-color: #efebe9;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #8d6e63;
+    font-style: italic;
+    min-height: 60px;
+}
+
+/* Modal de Fim de Jogo */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.hide {
+    display: none !important;
+}
+
+footer {
+    background-color: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    margin-top: auto;
+}
