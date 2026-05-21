@@ -3,66 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoFazenda: O Equilíbrio Verde</title>
+    <title>Simulador AgroSustentável - Concurso Agrinho</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>EcoFazenda: O Equilíbrio Verde</h1>
+        <h1>Simulador AgroSustentável</h1>
         <p>Tema: Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
     </header>
 
     <main class="container">
-        <section class="status-panel">
-            <div class="card">
-                <h3>Produção Agrícola</h3>
-                <p><span id="producao">0</span> / 100 toneladas</p>
+        <section class="dashboard">
+            <div class="indicador-card">
+                <h3>Fase Atual</h3>
+                <p id="txt-fase" class="destaque">1. Preparo do Solo</p>
             </div>
-            <div class="card">
-                <h3>Sustentabilidade</h3>
-                <p><span id="sustentabilidade">100</span>%</p>
-                <div class="progress-bar-container">
-                    <div id="barra-sustentavel" class="progress-bar"></div>
+            <div class="indicador-card">
+                <h3>Produtividade Esperada</h3>
+                <p><span id="txt-producao" class="destaque">0</span> / 100 sc/ha</p>
+            </div>
+            <div class="indicador-card">
+                <h3>Saúde do Ecossistema</h3>
+                <p><span id="txt-sustentabilidade" class="destaque">100</span>%</p>
+                <div class="barra-fundo">
+                    <div id="barra-eco" class="barra-progresso"></div>
                 </div>
             </div>
         </section>
 
-        <section class="action-panel">
-            <h2>Ações de Manejo</h2>
-            <div class="buttons-grid">
-                <button id="btn-plantar" class="btn btn-agro">
-                    <strong>Plantação Convencional</strong>
-                    <span>+10 Produção | -15% Sustentabilidade</span>
+        <section class="painel-contexto">
+            <h2 id="titulo-contexto">Sobre o Manejo do Solo</h2>
+            <p id="texto-contexto">O início de uma safra forte começa no chão. O manejo correto prepara a terra para receber as sementes, retém água e evita a erosão provocada pelas chuvas.</p>
+        </section>
+
+        <section class="painel-decisao">
+            <h2>Qual prática agrícola você vai adotar para esta fase?</h2>
+            <div class="botoes-decisao">
+                <button id="btn-opcao-a" class="btn btn-agro">
+                    <strong id="titulo-opt-a">Opção Tradicional Agressiva</strong>
+                    <span id="desc-opt-a">Aumenta muito o foco em produção rápida.</span>
                 </button>
-                
-                <button id="btn-organico" class="btn btn-eco">
-                    <strong>Cultivo Orgânico</strong>
-                    <span>+5 Produção | +5% Sustentabilidade</span>
-                </button>
-                
-                <button id="btn-reflorestar" class="btn btn-forest">
-                    <strong>Reforestar APP</strong>
-                    <span>0 Produção | +20% Sustentabilidade</span>
+                <button id="btn-opcao-b" class="btn btn-sustentavel">
+                    <strong id="titulo-opt-b">Opção Sustentável (ILPF / Tecnológica)</strong>
+                    <span id="desc-opt-b">Protege o meio ambiente e foca a longo prazo.</span>
                 </button>
             </div>
         </section>
 
-        <section class="log-panel">
-            <h3>Diário da Fazenda</h3>
-            <p id="mensagem-diario">Bem-vindo! Encontre o equilíbrio entre produzir e proteger a natureza.</p>
+        <section class="painel-diario">
+            <h3>🚜 Diário de Campo:</h3>
+            <p id="txt-diario">Sua fazenda está pronta para iniciar o ciclo. Escolha como preparar o solo.</p>
         </section>
 
         <section id="modal-fim" class="modal hide">
             <div class="modal-content">
-                <h2 id="modal-titulo">Fim de Jogo</h2>
-                <p id="modal-texto">Resultado da sua gestão.</p>
-                <button id="btn-reiniciar" class="btn btn-restart">Gerenciar Novamente</button>
+                <h2 id="modal-titulo">Relatório Final da Safra</h2>
+                <p id="modal-texto">Avaliando seus resultados...</p>
+                <button id="btn-reiniciar" class="btn btn-reiniciar">Iniciar Nova Safra</button>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Desenvolvido para o Concurso Agrinho 2026 - Categoria Programação</p>
+        <p>Desenvolvido para o Concurso Agrinho 2026 - Rede Estadual de Ensino do Paraná</p>
     </footer>
 
     <script src="script.js"></script>
