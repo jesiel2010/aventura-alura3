@@ -3,71 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador AgroSustentável - Concurso Agrinho</title>
-    <link rel="stylesheet" href="style.css">
+    <title>BioFronteiras: Pocket Edition</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --accent: #ff9800;
+            --background: #f1f8e9;
+            --dark: #1b5e20;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--background);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--dark);
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: var(--background);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .bar-container {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            background: var(--primary-light);
+            height: 100%;
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        .farm-area {
+            background: #bcaaa4;
+            height: 180px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #8d6e63;
+            transition: transform 0.1s;
+        }
+
+        .farm-area:active {
+            transform: scale(0.98);
+        }
+
+        .click-prompt {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .quiz-section {
+            margin-top: 20px;
+            background: #fff3e0;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+        }
+
+        .quiz-title {
+            color: #e65100;
+            margin-top: 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--dark);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--accent);
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background: #e65100;
+        }
+
+        .feedback {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Simulador AgroSustentável</h1>
-        <p>Tema: Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
-    </header>
 
-    <main class="container">
-        <section class="dashboard">
-            <div class="indicador-card">
-                <h3>Fase Atual</h3>
-                <p id="txt-fase" class="destaque">1. Preparo do Solo</p>
+<div class="game-container">
+    <div class="header">
+        <h1>🌱 BioFronteiras</h1>
+        <small>Sustentabilidade e Tecnologia no Campo</small>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            Moedas: <span id="coin-count">0</span> 🪙
+        </div>
+        <div class="stat-box">
+            Sustentabilidade
+            <div class="bar-container">
+                <div id="sus-bar" class="bar-fill"></div>
             </div>
-            <div class="indicador-card">
-                <h3>Produtividade Esperada</h3>
-                <p><span id="txt-producao" class="destaque">0</span> / 100 sc/ha</p>
+        </div>
+    </div>
+
+    <div class="farm-area" id="farm-click" onclick="harvest()">
+        <div class="click-prompt" id="farm-text">🚜 Clique para Colher! (+1 Moeda)</div>
+    </div>
+
+    <button class="btn btn-action" id="quiz-trigger-btn" onclick="openQuiz()">Responder Desafio do Agro</button>
+
+    <div class="quiz-section" id="quiz-box">
+        <h4 class="quiz-title">💡 Desafio Técnico</h4>
+        <p id="question-text">Carregando pergunta...</p>
+        <div class="options-grid" id="options-container">
             </div>
-            <div class="indicador-card">
-                <h3>Saúde do Ecossistema</h3>
-                <p><span id="txt-sustentabilidade" class="destaque">100</span>%</p>
-                <div class="barra-fundo">
-                    <div id="barra-eco" class="barra-progresso"></div>
-                </div>
-            </div>
-        </section>
+        <div class="feedback" id="feedback-text"></div>
+    </div>
+</div>
 
-        <section class="painel-contexto">
-            <h2 id="titulo-contexto">Sobre o Manejo do Solo</h2>
-            <p id="texto-contexto">O início de uma safra forte começa no chão. O manejo correto prepara a terra para receber as sementes, retém água e evita a erosão provocada pelas chuvas.</p>
-        </section>
+<script>
+    // Estado do Jogo
+    let coins = 0;
+    let sustainability = 100;
+    let currentQuestionIndex = 0;
 
-        <section class="painel-decisao">
-            <h2>Qual prática agrícola você vai adotar para esta fase?</h2>
-            <div class="botoes-decisao">
-                <button id="btn-opcao-a" class="btn btn-agro">
-                    <strong id="titulo-opt-a">Opção Tradicional Agressiva</strong>
-                    <span id="desc-opt-a">Aumenta muito o foco em produção rápida.</span>
-                </button>
-                <button id="btn-opcao-b" class="btn btn-sustentavel">
-                    <strong id="titulo-opt-b">Opção Sustentável (ILPF / Tecnológica)</strong>
-                    <span id="desc-opt-b">Protege o meio ambiente e foca a longo prazo.</span>
-                </button>
-            </div>
-        </section>
+    // Banco de Perguntas (Foco em tecnologia e boas práticas)
+    const quizData = [
+        {
+            question: "Qual das seguintes tecnologias ajuda o agricultor a economizar água monitorando a umidade exata do solo?",
+            options: [
+                "Sensores IoT e Irrigação Gota a Gota",
+                "Tratores sem cabine",
+                "Arado convencional de discos",
+                "Uso de pulverização aérea massiva"
+            ],
+            correct: 0,
+            reward: 50,
+            penalty: 20
+        },
+        {
+            question: "O que acontece quando o produtor rural mantém a Área de Preservação Permanente (APP) protegida?",
+            options: [
+                "A fazenda perde todo o valor comercial",
+                "Protege as fontes de água e evita a erosão do solo",
+                "Reduz a presença de polinizadores naturais",
+                "Aumenta a necessidade de adubos químicos"
+            ],
+            correct: 1,
+            reward: 60,
+            penalty: 25
+        },
+        {
+            question: "Qual técnica substitui o revolvimento do solo e ajuda a manter a matéria orgânica e a umidade na terra?",
+            options: [
+                "Queimada controlada",
+                "Monocultura contínua",
+                "Plantio Direto na palha",
+                "Pastoreio intensivo"
+            ],
+            correct: 2,
+            reward: 70,
+            penalty: 30
+        }
+    ];
 
-        <section class="painel-diario">
-            <h3>🚜 Diário de Campo:</h3>
-            <p id="txt-diario">Sua fazenda está pronta para iniciar o ciclo. Escolha como preparar o solo.</p>
-        </section>
+    // Elementos DOM
+    const coinCountEl = document.getElementById('coin-count');
+    const susBarEl = document.getElementById('sus-bar');
+    const farmTextEl = document.getElementById('farm-text');
+    const quizBox = document.getElementById('quiz-box');
+    const quizTriggerBtn = document.getElementById('quiz-trigger-btn');
+    const questionTextEl = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackTextEl = document.getElementById('feedback-text');
 
-        <section id="modal-fim" class="modal hide">
-            <div class="modal-content">
-                <h2 id="modal-titulo">Relatório Final da Safra</h2>
-                <p id="modal-texto">Avaliando seus resultados...</p>
-                <button id="btn-reiniciar" class="btn btn-reiniciar">Iniciar Nova Safra</button>
-            </div>
-        </section>
-    </main>
+    // Função de Colheita
+    function harvest() {
+        coins += 1;
+        sustainability = Math.max(0, sustainability - 0.5);
+        updateUI();
+        
+        farmTextEl.style.transform = "scale(1.2)";
+        setTimeout(() => farmTextEl.style.transform = "scale(1)", 100);
+    }
 
-    <footer>
-        <p>Desenvolvido para o Concurso Agrinho 2026 - Rede Estadual de Ensino do Paraná</p>
-    </footer>
+    // Atualiza a Interface
+    function updateUI() {
+        coinCountEl.innerText = Math.floor(coins);
+        susBarEl.style.width = sustainability + '%';
 
-    <script src="script.js"></script>
+        if (sustainability > 60) {
+            susBarEl.style.backgroundColor = '#4caf50';
+        } else if (sustainability > 30) {
+            susBarEl.style.backgroundColor = '#ff9800';
+        } else {
+            susBarEl.style.backgroundColor = '#f44336';
+        }
+    }
+
+    // Abre o painel de Quiz
+    function openQuiz() {
+        if (quizData.length === 0 || currentQuestionIndex >= quizData.length) {
+            questionTextEl.innerText = "Parabéns! Você respondeu todos os desafios disponíveis por hoje.";
+            optionsContainer.innerHTML = "";
+            quizBox.style.display = "block";
+            return;
+        }
+
+        feedbackTextEl.innerText = "";
+        quizBox.style.display = "block";
+        quizTriggerBtn.style.display = "none";
+        
+        let currentQuestion = quizData[currentQuestionIndex];
+        questionTextEl.innerText = currentQuestion.question;
+        
+        optionsContainer.innerHTML = "";
+        currentQuestion.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.className = 'btn';
+            button.innerText = option;
+            button.onclick = () => checkAnswer(index);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    // Valida a resposta do aluno
+    function checkAnswer(selectedIndex) {
+        let currentQuestion = quizData[currentQuestionIndex];
+        
+        if (selectedIndex === currentQuestion.correct) {
+            feedbackTextEl.style.color = "green";
+            feedbackTextEl.innerText = `🎯 Correto! +${currentQuestion.reward} Moedas e Solo Recuperado!`;
+            coins += currentQuestion.reward;
+            sustainability = Math.min(100, sustainability + 25);
+        } else {
+            feedbackTextEl.style.color = "red";
+            feedbackTextEl.innerText = `❌ Incorreto! O solo sofreu desgaste (-${currentQuestion.penalty}% Sustentabilidade).`;
+            sustainability = Math.max(0, sustainability - currentQuestion.penalty);
+        }
+
+        updateUI();
+        currentQuestionIndex++;
+
+        setTimeout(() => {
+            quizBox.style.display = "none";
+            quizTriggerBtn.style.display = "block";
+            quizTriggerBtn.innerText = "Próximo Desafio do Agro";
+        }, 3000);
+    }
+
+    updateUI();
+</script>
+
 </body>
 </html>
